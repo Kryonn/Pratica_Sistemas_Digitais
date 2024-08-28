@@ -1,0 +1,51 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+LIBRARY work;
+
+ENTITY p04 IS
+	PORT
+	(
+    	D :  IN  STD_LOGIC;
+    	Clk :  IN  STD_LOGIC;
+    	Q :  OUT  STD_LOGIC;
+    	NQ :  OUT  STD_LOGIC
+	);
+END p04;
+
+ARCHITECTURE bdf_type OF p04 IS
+
+COMPONENT p01
+	PORT(D : IN STD_LOGIC;
+     	Clk : IN STD_LOGIC;
+     	Qa : OUT STD_LOGIC;
+     	Qb : OUT STD_LOGIC
+	);
+END COMPONENT;
+
+SIGNAL	SYNTHESIZED_WIRE_0 :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_1 :  STD_LOGIC;
+
+
+BEGIN
+
+
+
+b2v_inst : p01
+PORT MAP(D => D,
+     	Clk => SYNTHESIZED_WIRE_0,
+     	Qa => SYNTHESIZED_WIRE_1);
+
+
+b2v_inst1 : p01
+PORT MAP(D => SYNTHESIZED_WIRE_1,
+     	Clk => Clk,
+     	Qa => Q,
+     	Qb => NQ);
+
+
+SYNTHESIZED_WIRE_0 <= NOT(Clk);
+
+
+
+END bdf_type;

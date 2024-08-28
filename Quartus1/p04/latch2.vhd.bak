@@ -1,0 +1,16 @@
+LIBRARY ieee ;
+USE ieee.std_logic_1164.all ;
+ENTITY latch IS
+PORT ( D, Clk : IN STD_LOGIC ;
+Q : OUT STD_LOGIC) ;
+END latch ;
+ARCHITECTURE Behavior OF latch IS
+BEGIN
+PROCESS ( D, Clk )
+BEGIN
+IF rising_edge(Clk) THEN
+Q <= D ;
+Q <= NOT(D) ;
+END IF ;
+END PROCESS ;
+END Behavior ;
