@@ -1,0 +1,213 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "h0",
+					"strict" : false
+				},
+				{
+					"name" : "h1",
+					"strict" : false
+				},
+				{
+					"name" : "h2",
+					"strict" : false
+				},
+				{
+					"name" : "h3",
+					"strict" : false
+				},
+				{
+					"name" : "h4",
+					"strict" : false
+				},
+				{
+					"name" : "h5",
+					"strict" : false
+				},
+				{
+					"name" : "h6",
+					"strict" : false
+				},
+				{
+					"name" : "h7",
+					"strict" : false
+				},
+				{
+					"name" : "h8",
+					"strict" : false
+				},
+				{
+					"name" : "h9",
+					"strict" : false
+				},
+				{
+					"name" : "h10",
+					"strict" : false
+				},
+				{
+					"name" : "h11",
+					"strict" : false
+				},
+				{
+					"name" : "h12",
+					"strict" : false
+				},
+				{
+					"name" : "h13",
+					"strict" : false
+				},
+				{
+					"name" : "h14",
+					"strict" : false
+				},
+				{
+					"name" : "h15",
+					"strict" : false
+				},
+				{
+					"name" : "h16",
+					"strict" : false
+				},
+				{
+					"name" : "h17",
+					"strict" : false
+				},
+				{
+					"name" : "h18",
+					"strict" : false
+				},
+				{
+					"name" : "h19",
+					"strict" : false
+				},
+				{
+					"name" : "h20",
+					"strict" : false
+				},
+				{
+					"name" : "h21",
+					"strict" : false
+				},
+				{
+					"name" : "h22",
+					"strict" : false
+				},
+				{
+					"name" : "h23",
+					"strict" : false
+				},
+				{
+					"name" : "h24",
+					"strict" : false
+				},
+				{
+					"name" : "h25",
+					"strict" : false
+				},
+				{
+					"name" : "h26",
+					"strict" : false
+				},
+				{
+					"name" : "h27",
+					"strict" : false
+				},
+				{
+					"name" : "h28",
+					"strict" : false
+				},
+				{
+					"name" : "h29",
+					"strict" : false
+				},
+				{
+					"name" : "h30",
+					"strict" : false
+				},
+				{
+					"name" : "h31",
+					"strict" : false
+				},
+				{
+					"name" : "h32",
+					"strict" : false
+				},
+				{
+					"name" : "h33",
+					"strict" : false
+				},
+				{
+					"name" : "h34",
+					"strict" : false
+				},
+				{
+					"name" : "h35",
+					"strict" : false
+				},
+				{
+					"name" : "h36",
+					"strict" : false
+				},
+				{
+					"name" : "h37",
+					"strict" : false
+				},
+				{
+					"name" : "h38",
+					"strict" : false
+				},
+				{
+					"name" : "h39",
+					"strict" : false
+				},
+				{
+					"name" : "h40",
+					"strict" : false
+				},
+				{
+					"name" : "h41",
+					"strict" : false
+				},
+				{
+					"name" : "a3",
+					"strict" : false
+				},
+				{
+					"name" : "a2",
+					"strict" : false
+				},
+				{
+					"name" : "a1",
+					"strict" : false
+				},
+				{
+					"name" : "a0",
+					"strict" : false
+				},
+				{
+					"name" : "a7",
+					"strict" : false
+				},
+				{
+					"name" : "a6",
+					"strict" : false
+				},
+				{
+					"name" : "a5",
+					"strict" : false
+				},
+				{
+					"name" : "a4",
+					"strict" : false
+				},
+				{
+					"name" : "Clk",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
