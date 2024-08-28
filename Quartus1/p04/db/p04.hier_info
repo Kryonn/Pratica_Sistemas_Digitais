@@ -1,0 +1,42 @@
+|p04
+D => latch1:inst1.D
+D => latch2:inst2.D
+D => latch2:inst3.D
+Clk => latch1:inst1.Clk
+Clk => latch2:inst2.Clk
+Clk => latch2:inst3.Clk
+Qa << latch1:inst1.Q
+NQa << latch1:inst1.NQ
+Qb << latch2:inst2.Q
+NQb << latch2:inst2.NQ
+Qc << latch2:inst3.Q
+NQc << latch2:inst3.NQ
+
+
+|p04|latch1:inst1
+D => Q$latch.DATAIN
+D => NQ$latch.DATAIN
+Clk => NQ$latch.LATCH_ENABLE
+Clk => Q$latch.LATCH_ENABLE
+Q <= Q$latch.DB_MAX_OUTPUT_PORT_TYPE
+NQ <= NQ$latch.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|p04|latch2:inst2
+D => Q~reg0.DATAIN
+D => NQ~reg0.DATAIN
+Clk => NQ~reg0.CLK
+Clk => Q~reg0.CLK
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+NQ <= NQ~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|p04|latch2:inst3
+D => Q~reg0.DATAIN
+D => NQ~reg0.DATAIN
+Clk => NQ~reg0.CLK
+Clk => Q~reg0.CLK
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+NQ <= NQ~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
