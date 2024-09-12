@@ -1,5 +1,6 @@
 # Praticas em Sistemas Digitais - SSC0108
 
+aa
 Projeto 1: Latches, Flip-flops, and Registers.
 
 # Introdução
