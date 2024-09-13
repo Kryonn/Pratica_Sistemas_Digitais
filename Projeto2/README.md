@@ -148,6 +148,58 @@ begin
 
 end counter;
 ```
+### Display de 7 segmentos:
+```VHDL
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity display is
+    port(s: in std_logic_vector(3 downto 0);
+        p: out std_logic_vector(6 downto 0));
+end display;
+
+architecture behavior of display is
+    begin
+        process(s)
+        begin
+            case (s) is
+                when "0000" =>
+                    p <= "0000001";
+                when "0001" =>
+                    p <= "1001111";
+                when "0010" =>
+                    p <= "0010010";
+                when "0011" =>
+                    p <= "0000110";
+                when "0100" =>
+                    p <= "1001100";
+                when "0101" =>
+                    p <= "0100100";
+                when "0110" =>
+                    p <= "0100000";
+                when "0111" =>
+                    p <= "0001111";
+                when "1000" =>
+                    p <= "0000000";
+                when "1001" =>
+                    p <= "0000100";
+                when "1010" =>
+                    p <= "0001000";
+                when "1011" =>
+                    p <= "1100000";
+                when "1100" =>
+                    p <= "0110001"; 
+                when "1101" =>
+                    p <= "1000010";
+                when "1110" =>
+                    p <= "0110000";
+                when "1111" =>
+                    p <= "0111000";
+            end case;
+        end process;
+    end behavior;
+```
+
 ### Contador de 8 bits(com display):
 > obs: é necessário os arquivos do flip flop T e do display.
 ```VHDL
