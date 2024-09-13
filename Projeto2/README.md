@@ -14,6 +14,8 @@ A seguir estão os resultados obtidos e os codigos VHDL utilizados em cada uma d
 ## Part 1
 
 RTL Viewer:
+
+Codigo VHDL:
 ### Flip flop T:
 ```VHDL
 LIBRARY ieee ;
@@ -326,8 +328,6 @@ begin
     	 
 end counter;
 ```
-
-Codigo VHDL:
 	
 ## Part 2
 
