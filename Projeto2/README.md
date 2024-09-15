@@ -334,6 +334,13 @@ end counter;
 RTL Viewer:
 
 Codigo VHDL:
+
+
+## Part 3
+
+RTL Viewer:
+
+Codigo VHDL:
 ### Contador de 1 segundo(sem display):
 ```VHDL
 library ieee;
@@ -380,12 +387,6 @@ begin
     q <= counter_q;
 end behavior;
 ```
-
-## Part 3
-
-RTL Viewer:
-
-Codigo VHDL:
 
 ## Part 4
 
