@@ -1,0 +1,20 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity tff is
+	port(t, clk, clear: in std_logic;
+			q, nq: out std_logic);
+end tff;
+
+architecture behavior of tff is
+
+begin
+	process(clk, clear)
+		begin
+			if (clear == 1) then
+				q <= 0;
+			elsif (falling_edge) then
+				q <= nq;
+			end if;
+		end process;
+end behavior;
