@@ -699,54 +699,69 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity rotator is
+    -- Declaração dos inputs e outputs
     port(clk, rst: in std_logic;
         d: out std_logic_vector(27 downto 0));
 end rotator;
 
 architecture rot of rotator is
 
+    -- Declaração do display
     component display
         port(s0, s1, s2, s3: in std_logic;
             p0, p1, p2, p3, p4, p5, p6: out std_logic);
     end component;
 
+    -- Declaração dos sinais
     signal clk_1sec: std_logic := '0';
     constant ac: integer range 0 to 24999999 := 24999999;
+    -- Contadores
     signal counter1: std_logic_vector(26 downto 0) := (others => '0');
     signal counter2: std_logic_vector(1 downto 0):= (others => '0');
+    -- Sinais de atribuição para o display
     signal ini: std_logic_vector(15 downto 0) := "1000110111100000";
     signal n1: std_logic_vector(15 downto 0) := "1101111000001000";
     signal n2: std_logic_vector(15 downto 0) := "1110000010001101";
     signal n3: std_logic_vector(15 downto 0) := "0000100011011110";
     signal q: std_logic_vector(15 downto 0) := "0000000000000000";
-	 signal nd: std_logic_vector(27 downto 0) := (others => '0');
+	signal nd: std_logic_vector(27 downto 0) := (others => '0');
     
 begin
+    -- Process da geração do clock de 1 segundo
     process(clk)
     begin
+        -- Na subida do clock:
         if(rising_edge(clk))then
+            -- Se counter1 = 24999999, então clk_1sec inverte o sinal e counter1 é zerado
             if(unsigned(counter1) = ac) then
                 clk_1sec <= not clk_1sec;
                 counter1 <= (others => '0');
+            -- Senão, counter1 incrementa
             else
                 counter1 <= std_logic_vector(unsigned(counter1) + 1);
             end if;
         end if;
     end process;
 
+    -- Process do contador de 0 até 3
     process(clk_1sec, rst)
     begin
+        -- Se rst = 1, counter2 é zerado
         if(rst = '1') then
             counter2 <= (others => '0');
+        -- Senão, se estiver na subida do clock:
         elsif (rising_edge(clk_1sec)) then
+            -- Se counter2 = 3, então counter2 é zerado
             if(counter2 = "11") then
                 counter2 <= (others => '0');
+            -- Senão, counter2 é incrementado
             else
                 counter2 <= std_logic_vector(unsigned(counter2) + 1);
             end if;
         end if;
     end process;
 
+    -- Process de atribuição das entradas dos displays
     process(counter2)
     begin
         case (counter2) is
@@ -760,9 +775,10 @@ begin
                 q <= n3;
         end case;
     end process;
-	 
-	 process(q)
-	 begin
+	
+    --Process da inversão da saída do display
+	process(q)
+	begin
 		if(q(3 downto 0) = "1000") then
 			d(6 downto 0) <= not nd(6 downto 0);
 		else
@@ -789,6 +805,7 @@ begin
 		
 	end process;
 
+    -- Instanciação dos displays
     inst1: display
     port map(s0 => q(0),
              s1 => q(1),
