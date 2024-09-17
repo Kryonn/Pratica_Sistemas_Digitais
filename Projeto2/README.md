@@ -456,6 +456,9 @@ end counter;
 
 ![Captura de tela 2024-09-17 141331](https://github.com/user-attachments/assets/e2693cfc-b78b-4c6c-9fe0-ea5428f8c9d5)
 
+RTL Viewer:
+![Captura de tela 2024-09-17 141540](https://github.com/user-attachments/assets/b17c16c2-67d5-4c37-ae2c-90073340a3fb)
+
 Código VHDL:
 ### Contador 16 bits:
 ```VHDL
