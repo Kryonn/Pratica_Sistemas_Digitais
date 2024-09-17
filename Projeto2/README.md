@@ -13,8 +13,6 @@ A seguir estão os resultados obtidos e os codigos VHDL utilizados em cada uma d
 
 ## Part 1
 
-RTL Viewer:
-
 Codigo VHDL:
 ### Flip flop T:
 ```VHDL
@@ -564,8 +562,6 @@ end architecture Behavioral;
 
 ## Part 3
 
-RTL Viewer:
-
 Codigo VHDL:
 ### Contador de 1 segundo(sem display):
 ```VHDL
@@ -691,8 +687,6 @@ end behavior;
 ```
 
 ## Part 4
-
-RTL Viewer:
 
 Codigo VHDL:
 ### Rotator de 4 bits:
@@ -865,8 +859,6 @@ end rot;
 ```
 
 ## Part 5
-
-RTL Viewer:
 
 Codigo VHDL:
 ### Rotator de 6 bits:
