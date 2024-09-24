@@ -15,14 +15,14 @@ signal clk_05: std_logic := '0';
 signal counter: std_logic_vector(26 downto 0) := (others => '0'); 
 signal counter1: std_logic_vector(3 downto 0) := (others => '0'); 
 constant max: integer range 0 to 12500000-1 := 12500000-1;
-signal a: std_logic_vector(10 downto 0) := "01011100000";
-signal b: std_logic_vector(10 downto 0) := "01110101010";
-signal c: std_logic_vector(10 downto 0) := "11101011101";
-signal d: std_logic_vector(10 downto 0) := "11101010000";
-signal e: std_logic_vector(10 downto 0) := "10000000000";
-signal f: std_logic_vector(10 downto 0) := "10101110100";
-signal g: std_logic_vector(10 downto 0) := "11101110100";
-signal h: std_logic_vector(10 downto 0) := "10101010000";
+signal a: std_logic_vector(11 downto 0) := "010111000000";
+signal b: std_logic_vector(11 downto 0) := "011101010100";
+signal c: std_logic_vector(11 downto 0) := "011101011101";
+signal d: std_logic_vector(11 downto 0) := "011101010000";
+signal e: std_logic_vector(11 downto 0) := "010000000000";
+signal f: std_logic_vector(11 downto 0) := "010101110100";
+signal g: std_logic_vector(11 downto 0) := "011101110100";
+signal h: std_logic_vector(11 downto 0) := "010101010000";
 signal a_b: integer range 0 to 5 := 5;
 signal b_b: integer range 0 to 9 := 9;
 signal c_b: integer range 0 to 12 := 12;
@@ -33,8 +33,7 @@ signal g_b: integer range 0 to 10 := 10;
 signal h_b: integer range 0 to 8 := 8;
 signal res_b: integer range 0 to 12 := 0;
 
-signal res: std_logic_vector(10 downto 0) := "00000000000";
-signal res_s: std_logic_vector(10 downto 0) := "00000000000";
+signal res: std_logic_vector(11 downto 0) := "000000000000";
 
 
 begin
@@ -96,7 +95,7 @@ begin
 	end process;
 			
 	
-	led <= res(10);
+	led <= res(11);
 	
 end be;
 ```
