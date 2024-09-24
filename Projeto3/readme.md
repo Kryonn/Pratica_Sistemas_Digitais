@@ -25,15 +25,16 @@ signal g: std_logic_vector(10 downto 0) := "11101110100";
 signal h: std_logic_vector(10 downto 0) := "10101010000";
 signal a_b: integer range 0 to 5 := 5;
 signal b_b: integer range 0 to 9 := 9;
-signal c_b: integer range 0 to 11 := 11;
-signal d_b: integer range 0 to 7 := 7;
-signal e_b: integer range 0 to 1 := 1;
-signal f_b: integer range 0 to 9 := 9;
-signal g_b: integer range 0 to 9 := 9;
-signal h_b: integer range 0 to 7 := 7;
+signal c_b: integer range 0 to 12 := 12;
+signal d_b: integer range 0 to 8 := 8;
+signal e_b: integer range 0 to 2 := 2;
+signal f_b: integer range 0 to 10 := 10;
+signal g_b: integer range 0 to 10 := 10;
+signal h_b: integer range 0 to 8 := 8;
 signal res_b: integer range 0 to 12 := 0;
 
 signal res: std_logic_vector(10 downto 0) := "00000000000";
+signal res_s: std_logic_vector(10 downto 0) := "00000000000";
 
 
 begin
@@ -53,9 +54,9 @@ begin
 	
 	process(clk_05, sw, b0, b1)
 	begin
-		if(b0 = '1') then
+		if(b0 = '0') then
 			res <= (others => '0');
-		elsif(b1 = '1') then
+		elsif(b1 = '1' and rising_edge(clk_05)) then
 			case (sw) is
 				when "000" =>
 					res <= a;
@@ -87,13 +88,13 @@ begin
 		elsif(rising_edge(clk_05)) then
 			if(unsigned(counter1) = res_b) then
 				counter1 <= (others => '0');
-				res <= (others => '0');
 			else
 				counter1 <= std_logic_vector(unsigned(counter1)+1);
 				res <= std_logic_vector(shift_left(unsigned(res), 1));
 			end if;
 		end if;
 	end process;
+			
 	
 	led <= res(10);
 	
