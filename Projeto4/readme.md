@@ -167,6 +167,117 @@ begin
 end be;
 ```
 
+## Part 3
+
+VHDL
+```VHDL
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity part3_verdadeiro is
+    port (
+        clk : in std_logic; -- KEY0
+        write_enable : in std_logic; -- SW9
+        address : in std_logic_vector(4 downto 0);  -- SW8-4
+        data_in : in std_logic_vector(3 downto 0);  -- SW3-0
+        out0 : out std_logic_vector(6 downto 0); -- data out
+        out2 : out std_logic_vector(6 downto 0); -- data in
+        out4 : out std_logic_vector(6 downto 0); -- address hex 4
+        out5 : out std_logic_vector(6 downto 0) -- address hex 5
+    );
+end part3_verdadeiro;
+
+architecture behavior of part3_verdadeiro is
+    type mem is array (0 to 31) of std_logic_vector(3 downto 0);
+    signal mem_array : mem;
+    signal temp_out  : std_logic_vector(3 downto 0);
+	 
+	 component display
+		PORT
+		(
+			S0 :  IN  STD_LOGIC;
+			S1 :  IN  STD_LOGIC;
+			S2 :  IN  STD_LOGIC;
+			S3 :  IN  STD_LOGIC;
+			p0 :  OUT  STD_LOGIC;
+			p1 :  OUT  STD_LOGIC;
+			p2 :  OUT  STD_LOGIC;
+			p3 :  OUT  STD_LOGIC;
+			p4 :  OUT  STD_LOGIC;
+			p5 :  OUT  STD_LOGIC;
+			p6 :  OUT  STD_LOGIC
+		);
+	end component;
+	 
+begin
+    process (clk)
+    begin
+        if rising_edge(clk) then
+            if write_enable = '1' then
+                mem_array(conv_integer(address)) <= data_in;
+					 temp_out <= data_in;
+            else
+					temp_out <= mem_array(conv_integer(address));
+				end if;
+        end if;
+    end process;
+
+    display_data: display
+	 port map(S0 => data_in(0),
+				S1 => data_in(1),
+				S2 => data_in(2),
+				S3 => data_in(3),
+				p0 => out2(0),
+				p1 => out2(1),
+				p2 => out2(2),
+				p3 => out2(3),
+				p4 => out2(4),
+				p5 => out2(5),
+				p6 => out2(6));
+				
+	 display_read: display
+	 port map(S0 => temp_out(0),
+				S1 => temp_out(1),
+				S2 => temp_out(2),
+				S3 => temp_out(3),
+				p0 => out0(0),
+				p1 => out0(1),
+				p2 => out0(2),
+				p3 => out0(3),
+				p4 => out0(4),
+				p5 => out0(5),
+				p6 => out0(6));
+				
+	 display_ad1: display
+	 port map(S0 => address(0),
+				S1 => address(1),
+				S2 => address(2),
+				S3 => address(3),
+				p0 => out4(0),
+				p1 => out4(1),
+				p2 => out4(2),
+				p3 => out4(3),
+				p4 => out4(4),
+				p5 => out4(5),
+				p6 => out4(6));
+				
+	 display_ad2: display
+	 port map(S0 => address(4),
+				S1 => '0',
+				S2 => '0',
+				S3 => '0',
+				p0 => out5(0),
+				p1 => out5(1),
+				p2 => out5(2),
+				p3 => out5(3),
+				p4 => out5(4),
+				p5 => out5(5),
+				p6 => out5(6));
+
+end behavior;
+```
+
 
 
 
