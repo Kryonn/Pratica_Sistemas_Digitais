@@ -49,6 +49,7 @@ end be;
 ```
 
 Quantidade de blocos de memória:
+
 ![Captura de tela 2024-10-02 150334](https://github.com/user-attachments/assets/9241f033-fe86-43d8-9b12-19a32682b78d)
 
 Simulação:
