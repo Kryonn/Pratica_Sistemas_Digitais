@@ -1,0 +1,40 @@
+|part1
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+w => state.OUTPUTSELECT
+rst => state[0].PRESET
+rst => state[1].ACLR
+rst => state[2].ACLR
+rst => state[3].ACLR
+rst => state[4].ACLR
+rst => state[5].ACLR
+rst => state[6].ACLR
+rst => state[7].ACLR
+rst => state[8].ACLR
+clk => state[0].CLK
+clk => state[1].CLK
+clk => state[2].CLK
+clk => state[3].CLK
+clk => state[4].CLK
+clk => state[5].CLK
+clk => state[6].CLK
+clk => state[7].CLK
+clk => state[8].CLK
+z <= z.DB_MAX_OUTPUT_PORT_TYPE
+led[0] <= state[0].DB_MAX_OUTPUT_PORT_TYPE
+led[1] <= state[1].DB_MAX_OUTPUT_PORT_TYPE
+led[2] <= state[2].DB_MAX_OUTPUT_PORT_TYPE
+led[3] <= state[3].DB_MAX_OUTPUT_PORT_TYPE
+led[4] <= state[4].DB_MAX_OUTPUT_PORT_TYPE
+led[5] <= state[5].DB_MAX_OUTPUT_PORT_TYPE
+led[6] <= state[6].DB_MAX_OUTPUT_PORT_TYPE
+led[7] <= state[7].DB_MAX_OUTPUT_PORT_TYPE
+led[8] <= state[8].DB_MAX_OUTPUT_PORT_TYPE
+
+
