@@ -325,3 +325,156 @@ begin
 
 end morse;
 ```
+
+```VHDL
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity part4 is
+    port(sw: in std_logic_vector(2 downto 0);
+        key: in std_logic_vector(1 downto 0);
+        clk: in std_logic;
+        led: out std_logic);
+end part4;
+
+architecture morse of part4 is
+
+	 signal counter2: std_logic_vector(3 downto 0) := "0000";
+    signal counter: std_logic_vector(26 downto 0) := (others => '0');
+    signal clk_05: std_logic := '0';
+    signal a: std_logic_vector(11 downto 0) := "010111000000";
+    signal b: std_logic_vector(11 downto 0) := "011101010100";
+    signal c: std_logic_vector(11 downto 0) := "011101011101";
+    signal d: std_logic_vector(11 downto 0) := "011101010000";
+    signal e: std_logic_vector(11 downto 0) := "010000000000";
+    signal f: std_logic_vector(11 downto 0) := "010101110100";
+    signal g: std_logic_vector(11 downto 0) := "011101110100";
+    signal h: std_logic_vector(11 downto 0) := "010101010000";
+    signal res: std_logic_vector(11 downto 0) := "000000000000";
+    signal a_b: integer range 0 to 5 := 5;
+    signal b_b: integer range 0 to 9 := 9;
+    signal c_b: integer range 0 to 12 := 12;
+    signal d_b: integer range 0 to 8 := 8;
+    signal e_b: integer range 0 to 2 := 2;
+    signal f_b: integer range 0 to 10 := 10;
+    signal g_b: integer range 0 to 10 := 10;
+    signal h_b: integer range 0 to 8 := 8;
+    signal res_b: integer range 0 to 12 := 0;
+    signal enable: std_logic := '0';
+    signal load: std_logic := '0';
+    signal counting: std_logic := '0';
+	 signal state: std_logic := '0';
+	 signal flag1: std_logic := '0';
+	 signal flag2: std_logic := '0';
+
+begin
+    process(clk)
+    begin
+        if(rising_edge(clk) and flag1 = '1') then
+            if(unsigned(counter) = 12500000) then
+                counter <= (others => '0');
+                clk_05 <= not clk_05;
+            else
+                counter <= std_logic_vector(unsigned(counter)+1);
+            end if;
+        end if;
+    end process;
+	 
+	 process(key(0), key(1), clk)
+	 begin
+		if(flag1 = '0') then
+			case(state) is 
+				when '0' =>
+					if(key(0) = '0') then
+						state <= '0';
+					else
+						if(key(1) = '0') then
+							state <= '1';
+						else
+							state <= '0';
+						end if;
+					end if;
+				when '1' =>
+					if(key(0) = '0') then
+						state <= '0';
+						enable <= '0';
+						load <= '0';
+						flag2 <= '0';
+						flag1 <= '0';
+					else
+						if(flag1 = '0') then
+							flag1 <= '1';
+							state <= '1';
+							enable <= '1';
+							load <= '1';
+						else
+							if(flag1 = '1') then
+								if(flag2 = '0') then
+									state <= '1';
+									enable <= '1';
+									load <= '0';
+								else
+									state <= '0';
+									enable <= '0';
+									flag2 <= '0';
+									flag1 <= '0';
+								end if;
+							end if;
+						end if;
+					end if;
+				end case;
+		end if;
+	 end process;
+	 
+	 process(clk_05, enable, load, state)
+	 begin
+		if(enable = '1') then
+			if(load = '1') then
+				case(sw) is
+                when "000" =>
+                    res <= a;
+                    res_b <= a_b;
+                when "001" =>
+                    res <= b;
+                    res_b <= b_b;
+                when "010" =>
+                    res <= c;
+                    res_b <= c_b;
+                when "011" =>
+                    res <= d;
+                    res_b <= d_b;
+                when "100" =>
+                    res <= e;
+                    res_b <= e_b;
+                when "101" =>
+                    res <= f;
+                    res_b <= f_b;
+                when "110" =>
+                    res <= g;
+                    res_b <= g_b;
+                when "111" =>
+                    res <= h;
+                    res_b <= h_b;
+            end case;
+			else
+				if(flag1 = '1') then
+					if(rising_edge(clk_05)) then
+						if(unsigned(counter2) = res_b) then
+							counter2 <= (others => '0');
+							flag2 <= '1';
+						else
+							counter2 <= std_logic_vector(unsigned(counter2)+1);
+							res <= std_logic_vector(shift_left(unsigned(res), 1));
+						end if;
+					end if;
+				end if;
+			end if;
+		end if;
+	 end process;
+
+	 led <= res(11);
+
+
+end morse;
+```
