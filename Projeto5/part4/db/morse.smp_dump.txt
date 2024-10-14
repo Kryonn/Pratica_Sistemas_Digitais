@@ -1,0 +1,18 @@
+
+State Machine - |morse|next_state
+Name next_state.finished next_state.wait_long next_state.wait_short next_state.dash next_state.dot next_state.idle 
+next_state.idle 0 0 0 0 0 0 
+next_state.dot 0 0 0 0 1 1 
+next_state.dash 0 0 0 1 0 1 
+next_state.wait_short 0 0 1 0 0 1 
+next_state.wait_long 0 1 0 0 0 1 
+next_state.finished 1 0 0 0 0 1 
+
+State Machine - |morse|state
+Name state.finished state.wait_long state.wait_short state.dash state.dot state.idle 
+state.idle 0 0 0 0 0 0 
+state.dot 0 0 0 0 1 1 
+state.dash 0 0 0 1 0 1 
+state.wait_short 0 0 1 0 0 1 
+state.wait_long 0 1 0 0 0 1 
+state.finished 1 0 0 0 0 1 
