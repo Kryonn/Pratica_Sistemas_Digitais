@@ -168,22 +168,25 @@ def assembly_to_binary(assembly_code):
     
     return binary_code
 
+# Função para ler o programa assembly de um arquivo e convertê-lo
+def convert_file_to_binary(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            assembly_program = file.read()
+        # Converte o programa para binário
+        binary_program = assembly_to_binary(assembly_program)
+        
+        # Imprime cada instrução em binário
+        for binary_line in binary_program:
+            print(binary_line)
+    except FileNotFoundError:
+        print("Arquivo não encontrado.")
+    except Exception as e:
+        print(f"Erro ao ler o arquivo: {e}")
 
-# Teste com um programa de exemplo em assembly
-assembly_program = """
-LOAD A, 5
-ADD A, B
-STORE A, 10
-JMP 20
-WAIT
-"""
-
-# Converte o programa para binário
-binary_program = assembly_to_binary(assembly_program)
-
-# Imprime cada instrução em binário
-for binary_line in binary_program:
-    print(binary_line)
+# Exemplo de uso
+file_path = 'programa_assembly.txt'  # Caminho do arquivo com o código assembly
+convert_file_to_binary(file_path)
 ```
 
 
