@@ -91,7 +91,7 @@ end Behavioral;
 ```
 
 .py
-le do arquivo
+le o assemble e transforma em .mif
 
 ```py
 # DicionC!rio de instruC'C5es e seus opcodes em binC!rio
