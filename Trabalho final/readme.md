@@ -190,100 +190,136 @@ for binary_line in binary_program:
 le do arquivo
 
 ```py
-# Dicionário de instruções e seus opcodes em binário
+# DicionC!rio de instruC'C5es e seus opcodes em binC!rio
 instruction_set = {
-    'ADD': '0001',
-    'SUB': '0010',
-    'AND': '0011',
-    'OR':  '0100',
-    'NOT': '0101',
-    'CMP': '0110',
-    'JMP': '0111',
-    'JEQ': '1000',
-    'JGR': '1001',
-    'LOAD': '1010',
-    'STORE': '1011',
-    'MOV': '1100',
-    'IN': '1101',
-    'OUT': '1110',
-    'WAIT': '1111'
+    "ADD": "0000",
+    "SUB": "0001",
+    "AND": "0010",
+    "OR": "0011",
+    "NOT": "0100",
+    "CMP": "0101",
+    "JMP": "0110",
+    "JEQ": "0111",
+    "JGR": "1000",
+    "LOAD": "1001",
+    "STORE": "1010",
+    "MOV": "1011",
+    "IN": "1100",
+    "OUT": "1101",
+    "WAIT": "1110",
 }
 
-# Dicionário para conversão dos registradores para binário
+# DicionC!rio para conversC#o dos registradores para binC!rio (2 bits)
 register_set = {
-    'A': '000',
-    'B': '001',
-    'R': '010',
-    'PC': '011',
-    'IR': '100'
+    "A": "00",
+    "B": "01",
+    "R": "10",
+    "I": "11",
 }
 
-# Função para converter uma linha de código assembly em binário
+# FunC'C#o para converter uma linha de cC3digo assembly em binC!rio
 def assembly_to_binary(assembly_code):
     binary_code = []
-    
+    comments = []
+
     for line in assembly_code.splitlines():
-        # Divide a linha em instruções e operandos
+        # Divide a linha em instruC'C5es e operandos
         parts = line.split()
         if not parts:
             continue  # Pula linhas vazias
-        
+
         instruction = parts[0].upper()
         opcode = instruction_set.get(instruction)
-        
+
         if opcode is None:
-            print(f"Instrução inválida: {instruction}")
+            print(f"InstruC'C#o invC!lida: {instruction}")
             continue
 
-        # Inicia a linha de código binário com o opcode
+        # Inicia a linha de cC3digo binC!rio com o opcode
         binary_line = opcode
-        
-        # Trata as instruções com diferentes números de operandos
-        if instruction in ['ADD', 'SUB', 'AND', 'OR', 'MOV']:
-            reg1 = register_set.get(parts[1].rstrip(','), '000')
-            reg2 = register_set.get(parts[2], '000')
-            binary_line += reg1 + reg2 + '0000'  # Usando 8 bits para registros
+        comment = ""
 
-        elif instruction in ['NOT', 'IN', 'OUT']:
-            reg1 = register_set.get(parts[1], '000')
-            binary_line += reg1 + '00000000'  # Operações de um registro
+        # Trata as instruC'C5es com diferentes nC:meros de operandos
+        if instruction in ["ADD", "SUB", "AND", "OR", "MOV"]:
+            # OperaC'C5es com dois registradores (4 bits para instruC'C#o e 4 bits para dois registradores)
+            reg1 = register_set.get(parts[1].rstrip(","), "00")
+            reg2 = register_set.get(parts[2], "00")
+            binary_line += reg1 + reg2  # Adiciona os registradores (2 bits cada)
+            comment = f"-- {instruction} {parts[1]} + {parts[2]}"
 
-        elif instruction in ['JMP', 'JEQ', 'JGR']:
-            addr = format(int(parts[1]), '08b')
-            binary_line += addr  # Adiciona o endereço de 8 bits
-        
-        elif instruction in ['LOAD', 'STORE']:
-            reg1 = register_set.get(parts[1].rstrip(','), '000')
-            addr = format(int(parts[2]), '08b')
-            binary_line += reg1 + addr  # Registro + endereço de 8 bits
+        elif instruction in ["NOT", "IN", "OUT"]:
+            # OperaC'C5es com um registrador (2 bits para registrador e 2 bits para operaC'C#o)
+            reg1 = register_set.get(parts[1], "00")
+            binary_line += reg1 + "00"  # OperaC'C5es com um registro
+            comment = f"-- {instruction} {parts[1]}"
 
-        elif instruction == 'WAIT':
-            binary_line += '00000000'  # WAIT não possui operandos
+        elif instruction in ["JMP", "JEQ", "JGR"]:
+            # InstruC'C5es de salto (sem registradores, sC3 endereC'o de 8 bits)
+            addr = format(
+                int(parts[1]), "08b"
+            )  # Converte o endereC'o para binC!rio de 8 bits
+            binary_line += addr  # Adiciona o endereC'o
+            comment = f"-- {instruction} {parts[1]}"
 
-        # Adiciona a linha convertida para binário na lista final
-        binary_code.append(binary_line)
-    
+        elif instruction in ["LOAD", "STORE"]:
+            # InstruC'C5es de carga/armazenamento (registrador + endereC'o de 8 bits)
+            reg1 = register_set.get(parts[1].rstrip(","), "00")
+            addr = format(
+                int(parts[2]), "08b"
+            )  # Converte o endereC'o para binC!rio de 8 bits
+            binary_line += reg1 + addr  # Registro + endereC'o de 8 bits
+            comment = f"-- {instruction} {parts[1]} {parts[2]}"
+
+        elif instruction == "WAIT":
+            # WAIT nC#o possui operandos
+            binary_line += "0000"  # WAIT com cC3digo de operaC'C#o de 8 bits
+            comment = "-- WAIT"
+
+        # Adiciona a linha convertida para binC!rio e o comentC!rio na lista final
+        binary_code.append(f"{binary_line} {comment}")
+
     return binary_code
 
-# Função para ler o programa assembly de um arquivo e convertê-lo
-def convert_file_to_binary(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            assembly_program = file.read()
-        # Converte o programa para binário
-        binary_program = assembly_to_binary(assembly_program)
-        
-        # Imprime cada instrução em binário
-        for binary_line in binary_program:
-            print(binary_line)
-    except FileNotFoundError:
-        print("Arquivo não encontrado.")
-    except Exception as e:
-        print(f"Erro ao ler o arquivo: {e}")
 
-# Exemplo de uso
-file_path = 'programa_assembly.txt'  # Caminho do arquivo com o código assembly
-convert_file_to_binary(file_path)
+# FunC'C#o para gerar o arquivo .mif a partir do cC3digo binC!rio
+def generate_mif(binary_code, file_name="program.mif"):
+    # Definir as caracterC-sticas da memC3ria
+    depth = 256  # NC:mero de endereC'os (deve ser 256 conforme solicitado)
+    width = 8  # Cada linha tem 8 bits
+
+    # Criar e abrir o arquivo .mif
+    with open(file_name, "w") as mif_file:
+        mif_file.write("-- Arquivo de inicializaC'C#o de memC3ria\n")
+        mif_file.write(f"DEPTH = {depth};\n")
+        mif_file.write(f"WIDTH = {width};\n")
+        mif_file.write("ADDRESS_RADIX = HEX;\n")
+        mif_file.write("DATA_RADIX = BIN;\n")
+        mif_file.write("CONTENT\nBEGIN\n")
+
+        # Escrever cada linha de cC3digo binC!rio no arquivo .mif
+        for i, binary_line in enumerate(binary_code):
+            # Escreve o endereC'o (em hexadecimal) e a instruC'C#o correspondente
+            mif_file.write(f"{format(i, 'X')} : {binary_line};\n")
+
+        mif_file.write("END;\n")
+    print(f"Arquivo .mif gerado: {file_name}")
+
+
+# Exemplo de uso:
+assembly_program = """
+ADD A, B
+SUB A, B
+ADD A, I
+MOV A, R
+IN B
+WAIT
+"""
+
+# Converte o programa para binC!rio
+binary_program = assembly_to_binary(assembly_program)
+
+# Gera o arquivo .mif com o cC3digo binC!rio
+generate_mif(binary_program, "program.mif")
 ```
 
 
